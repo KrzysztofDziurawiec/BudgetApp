@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.kdziurawiec.budgetapp.activity.TransactionActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:titleTextAppearance="@string/et_category"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--    <TextView
+            android:id="@+id/label"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="100dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="45dp"
+            android:text="ADD Transaction"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.example.kdziurawiec.budgetapp.fragment.MembersFragment">
+
+            <TextView
+                android:id="@+id/selectCategoryTextView"
+                android:layout_alignParentTop="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/et_category"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/categoryList"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/selectCategoryTextView"
+                android:layout_marginTop="13dp" />-->
+
+<!--        <EditText
+            android:id="@+id/amountEditText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:layout_alignTop="@+id/amountTextView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="108dp" />
+
+        <Button
+            android:id="@+id/addTransactionBtn"
+            android:text="@string/btn_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/amountTextView"
+            android:layout_alignBottom="@+id/amountTextView"
+            android:layout_toEndOf="@+id/amountEditText" />
+
+        <TextView
+            android:id="@+id/amountTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/et_amount"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_below="@+id/categoryList"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="22dp" />-->
+
+        <LinearLayout
+            android:id="@+id/add_transaction_form"
+            android:layout_below="@+id/categoryList"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="66dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/addTransactionTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/et_add_trans"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/amountEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_amount"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/selectCategoryTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/et_category"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/categoryList"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/selectCategoryTextView"
+                android:layout_marginTop="13dp" />
+
+
+
+            <Button
+                android:id="@+id/addTransactionBtn"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/icon_margin"
+                android:text="@string/btn_amount"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+<!--    </RelativeLayout>-->
+
+</android.support.design.widget.CoordinatorLayout>

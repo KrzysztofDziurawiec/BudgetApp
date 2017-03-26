@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.kdziurawiec.budgetapp.activity.MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings_white"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_add_account"
+        android:orderInCategory="100"
+        android:title="@string/action_add_account"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_log_in"
+        android:orderInCategory="100"
+        android:title="@string/action_log_in"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_log_out"
+        android:orderInCategory="100"
+        android:title="@string/action_log_out"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_info"
+        android:orderInCategory="100"
+        android:title="@string/action_app_info"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="arm64-v8a,armeabi-v7a,armeabi"
+    api-level="23"
+    density="xxxhdpi"
+    format="8"
+    plugin-version="2.2.3"
+    timestamp="201623849242400"
+    token="911309010408527070"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="616" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="111" />
+    <task
+        name="verifier"
+        duration="11" />
+
+    <artifact
+        location="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="2289403848442741"
+        verifier="METHOD_ADDED" >
+        <artifact
+            location="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+            type="RESOURCES" />
+        <artifact
+            location="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
+            type="DEX" />
+    </build>
+
+</instant-run>

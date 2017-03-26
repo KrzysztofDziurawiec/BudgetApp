@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F50057</color>
+    <color name="colorPrimaryDark">#C51162</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#FF80AB</color>
+
+
+    <color name="colorIconRed">#FF8A80</color>
+    <color name="colorIconPurple">#EA80FC</color>
+    <color name="colorIconIndigo">#8C9EFF</color>
+    <color name="colorIconBlue">#82B1FF</color>
+    <color name="colorIconTeal">#A7FFEB</color>
+    <color name="colorIconGreen">#CCFF90</color>
+    <color name="colorIconLime">#F4FF81</color>
+    <color name="colorIconYellow">#FFFF8D</color>
+    <color name="colorIconOrange">#FFD180</color>
+    <color name="colorIconBrown">#D7CCC8</color>
+    <color name="colorDeepOrange">#FFCCBC</color>
+    <color name="colorIconBlueGrey">#CFD8DC</color>
+</resources>

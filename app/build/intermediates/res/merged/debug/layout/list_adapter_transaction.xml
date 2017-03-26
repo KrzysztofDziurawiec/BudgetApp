@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground">
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="@dimen/icon_margin"
+        app:srcCompat="@drawable/ic_wallet"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/button_circle"
+        android:id="@+id/listIcon" />
+
+<!--    <Button
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:textSize="11pt"
+        android:textColor="@color/textColorPrimary"
+        android:background="@drawable/button_circle"
+        android:drawableTop="@android:drawable/ic_menu_add"
+        android:id="@+id/listIcon" />-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:id="@+id/linearLayout"
+        android:layout_toRightOf="@+id/listIcon">
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:textSize="11pt"
+            android:id="@+id/trans_title" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:textSize="7pt"
+            android:id="@+id/trans_desc" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="@dimen/icon_margin"
+        android:textSize="11pt"
+        android:id="@+id/trans_amount"
+        android:layout_alignParentRight="true"/>
+
+
+</RelativeLayout>
+

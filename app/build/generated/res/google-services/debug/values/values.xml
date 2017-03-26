@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">653902617685-a7k20ji8hia46gnbca22scofc1d33s27.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://budgetapp-ab360.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">653902617685</string>
+    <string name="google_api_key" translatable="false">AIzaSyAWp55gQ5ingrU0kjSmP6h0A5gJH_3ksXU</string>
+    <string name="google_app_id" translatable="false">1:653902617685:android:15474325bed63b81</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAWp55gQ5ingrU0kjSmP6h0A5gJH_3ksXU</string>
+    <string name="google_storage_bucket" translatable="false">budgetapp-ab360.appspot.com</string>
+</resources>
