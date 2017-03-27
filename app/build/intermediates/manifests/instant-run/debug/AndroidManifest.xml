@@ -24,6 +24,7 @@
     <uses-permission android:name="com.example.kdziurawiec.budgetapp.permission.C2D_MESSAGE" />
 
     <application
+        name="com.example.kdziurawiec.budgetapp.model.MyApplication"
         android:name="com.android.tools.fd.runtime.BootstrapApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

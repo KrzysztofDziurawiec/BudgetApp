@@ -18,7 +18,6 @@ public class User {
     public User(){}
 
     public User(String userIdIn, String usernameIn, String emailIn,String created_atIn, List<String> accountsIn){
-        Date date = new Date();
         this.userID = userIdIn;
         this.username = usernameIn;
         this.email = emailIn;

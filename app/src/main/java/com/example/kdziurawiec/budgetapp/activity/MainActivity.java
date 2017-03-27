@@ -1,6 +1,8 @@
 package com.example.kdziurawiec.budgetapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.kdziurawiec.budgetapp.R;
@@ -16,8 +19,15 @@ import com.example.kdziurawiec.budgetapp.adapter.ViewPagerAdapter;
 import com.example.kdziurawiec.budgetapp.fragment.AccountFragment;
 import com.example.kdziurawiec.budgetapp.fragment.ChartFragment;
 import com.example.kdziurawiec.budgetapp.fragment.MembersFragment;
+import com.example.kdziurawiec.budgetapp.model.Transaction;
+import com.example.kdziurawiec.budgetapp.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -26,6 +36,7 @@ public class MainActivity extends AppCompatActivity  {
     //creating firebaseAuth instance listener
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    SharedPreferences sharedPref;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -39,21 +50,8 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
 
-        //setting viePager and tabLayout for tabs
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons(); //setting tab icons
-
-//Checking if user is signed in. If not redirect to LoginActivity
+        //Checking if user is signed in. If not redirect to LoginActivity
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -75,7 +73,50 @@ public class MainActivity extends AppCompatActivity  {
             }
         };
 
+        setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
 
+        //setting viePager and tabLayout for tabs
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons(); //setting tab icons
+
+
+
+        getUserName();
+
+
+    }
+
+    public void getUserName(){
+
+        //getting shared pref for user id
+        sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+        String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
+        //connecting to firebase
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String username = dataSnapshot.child("username").getValue().toString();
+                //setting set pref of user uid
+                SharedPreferences.Editor prefEditor = sharedPref.edit();
+                prefEditor.putString(getString(R.string.pref_username), username);
+                prefEditor.commit();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getBaseContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -132,7 +173,6 @@ public class MainActivity extends AppCompatActivity  {
                 Toast.makeText(getApplicationContext(),"You cliked: "+ getString(R.string.action_settings),Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_add_account:
-                Toast.makeText(getApplicationContext(),"You clicked: "+ getString(R.string.action_add_account),Toast.LENGTH_SHORT).show();
                 //intent to CreateAccountActivity
                 intent = new Intent(this, CreateAccountActivity.class);
                 startActivity(intent);
@@ -145,7 +185,7 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             case R.id.action_log_out:
                 mAuth.signOut();
-                Toast.makeText(getApplicationContext(),"You clicked: "+ getString(R.string.action_log_out),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_app_info:
                 Toast.makeText(getApplicationContext(),"You clicked: "+ getString(R.string.action_app_info),Toast.LENGTH_SHORT).show();

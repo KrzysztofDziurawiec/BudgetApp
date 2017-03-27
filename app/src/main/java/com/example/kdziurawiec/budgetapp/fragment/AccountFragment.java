@@ -2,6 +2,7 @@ package com.example.kdziurawiec.budgetapp.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,12 @@ import com.example.kdziurawiec.budgetapp.R;
 import com.example.kdziurawiec.budgetapp.activity.CreateAccountActivity;
 import com.example.kdziurawiec.budgetapp.activity.TransactionActivity;
 import com.example.kdziurawiec.budgetapp.model.Transaction;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,7 +63,9 @@ public class AccountFragment extends Fragment{
         TextView balanceTextView = (TextView) rootView.findViewById(R.id.balanceTextView);
         balanceTextView.setText("Current balance is : £259.99");
 
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        transactionList = new ArrayList<Transaction>();
+
+/*        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         transactionList = new ArrayList<>();
         transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
         transactionList.add(new Transaction("Chris",date,"Petrol",13.00));
@@ -77,7 +86,39 @@ public class AccountFragment extends Fragment{
         mListView = (ListView) rootView.findViewById(R.id.transactionList);
         //ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, listItems );
         adapter = new MyAdapter();
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(adapter);*/
+
+        //getting shared pref for acount id
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+        String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
+
+        //connecting to firebase
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+        dbRef.child("transactions").child(accountID).addValueEventListener(new ValueEventListener() {
+            //firebase event listener
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //looping through results, creating transaction objects and adding them to the transactionList
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Transaction transFromFirabase = ds.getValue(Transaction.class);
+                    transactionList.add(transFromFirabase);
+                }
+
+                ListView mListView = (ListView) getView().findViewById(R.id.transactionList);
+                adapter = new MyAdapter();
+                mListView.setAdapter(adapter);
+               // adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                //Toast.makeText(getActivity(), databaseError.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
 
 
 

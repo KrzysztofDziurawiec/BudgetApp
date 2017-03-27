@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //creating firebaseAuth instance listener
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private TextView summary;
     private Button signUpBtn;
     private Button logInBtn;
     private View userFormView;
@@ -166,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());
         List<String> accounts = new ArrayList<String>();
 
-        User newUser = new User(userID, email, username, stringDate.toString(),accounts); //reading in and creating transaction object
+        User newUser = new User(userID, username, email, stringDate.toString(),accounts); //reading in and creating transaction object
 
         //connecting to firebase
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();

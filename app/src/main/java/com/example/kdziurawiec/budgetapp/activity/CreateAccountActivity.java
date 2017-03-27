@@ -3,6 +3,7 @@ package com.example.kdziurawiec.budgetapp.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.kdziurawiec.budgetapp.R;
 import com.example.kdziurawiec.budgetapp.fragment.DateDialog;
 import com.example.kdziurawiec.budgetapp.model.Account;
+import com.example.kdziurawiec.budgetapp.model.MyApplication;
 import com.example.kdziurawiec.budgetapp.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +39,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
     private Toolbar toolbar;
     private DatabaseReference dbRef;
+    MyApplication myApp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_create_account);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        myApp =((MyApplication) getApplicationContext());
 
     //sets the toolbar back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,28 +86,47 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
         users.put(userID,"true");
-        //User user = getUser();
-        //users.add(user.getUserID());
 
         Account newAccount = new Account(accName, accStartingBalance, accStartDate, cycle, users); //reading in and creating account object
 
+        createAccount(newAccount, userID);
+    }
+
+    public void createAccount(Account newAccount, final String userID){
         //connecting to firebase
         dbRef = FirebaseDatabase.getInstance().getReference();
 
         DatabaseReference accountsRef = dbRef.child("accounts").push(); //drilling down to account and setting it to accountsRef
         accountsRef.setValue(newAccount); //adding account object to accounts in firebase
         //getting key of new account
-        String accountKey = accountsRef.getKey();
-        //setting account key for current user
-        DatabaseReference usersRef = dbRef.child("users").child(userID).child("accounts").child(accountKey); //drilling down to user and setting it to current userRef
-        usersRef.setValue("true"); //adding account key to current user for double entry in firebase
+        final String accountKey = accountsRef.getKey();
+
+        //setting in MyApp values for account and id
+        myApp.setCurrentAccountId(accountKey);
+        myApp.setCurrentAccount(newAccount);
+
+        //calling shared preferences to set account uid
+        SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        //setting set pref of account id
+        prefEditor.putString(getString(R.string.pref_account_id), accountKey);
+        prefEditor.commit();
 
         dbRef.child("accounts").addValueEventListener(new ValueEventListener() {
             //firebase event listener
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("eror in add account:" + dataSnapshot.toString());
-                Toast.makeText(getBaseContext(), "Your transaction was  added successfully", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(getBaseContext(), "Your account was  added successfully", Toast.LENGTH_LONG).show();
+
+                //setting account key for current user
+                DatabaseReference usersRef = dbRef.child("users").child(userID).child("accounts").child(accountKey); //drilling down to user and setting it to current userRef
+                usersRef.setValue("true"); //adding account key to current user for double entry in firebase
+
+                //intent to CreateAccountActivity
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
@@ -112,7 +136,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             }
         });
     }
-
 
     public void onStart(){
         super.onStart();
@@ -145,9 +168,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         //connecting to firebase
         dbRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference usersRef = dbRef.child("users").push(); //drilling down to transaction and setting it to tranRef
+        DatabaseReference usersRef = dbRef.child("users"); //drilling down to transaction and setting it to tranRef
         Query query =  usersRef.equalTo(userID);
-        System.out.println(query.toString());
+        System.out.println("QUERY:"+query.toString());
         usersRef.addValueEventListener(new ValueEventListener() {
             //firebase event listener
             @Override
@@ -179,6 +202,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 System.out.println(dataSnapshot.getKey());
+                Toast.makeText(getBaseContext(), "Your user was found successfully", Toast.LENGTH_LONG).show();
                 User user = dataSnapshot.getValue(User.class);
 
             }

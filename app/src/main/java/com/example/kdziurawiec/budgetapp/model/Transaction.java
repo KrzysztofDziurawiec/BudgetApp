@@ -5,15 +5,15 @@ package com.example.kdziurawiec.budgetapp.model;
  */
 
 public class Transaction {
-    String member;
+    String createdBy;
     String transDate;
     String category;
     Double amount;
 
     public Transaction(){}
 
-    public Transaction(String memberIn, String transDateIn, String categoryIn, Double amountIn){
-        this.member = memberIn;
+    public Transaction(String createdByIn, String transDateIn, String categoryIn, Double amountIn){
+        this.createdBy = createdByIn;
         this.transDate = transDateIn;
         this.category = categoryIn;
         this.amount = amountIn;
@@ -24,12 +24,12 @@ public class Transaction {
 
     public String getCategory() {return category;}
 
-    public String getMember() {return member;}
+    public String getCreatedBy() {return createdBy;}
 
     public Double getAmount() {return amount;}
 
     @Override
     public String toString() {
-        return "By "+this.getMember()+" date: "+this.getTransactionDate();
+        return "By "+this.getCreatedBy()+" date: "+this.getTransactionDate();
     }
 }

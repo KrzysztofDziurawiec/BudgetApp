@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="94fca868854457ede6df15c902938468c71d579e">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-10.2.0_e91ac3f0185280ba0511d64303a11e2ea0bcffda\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\design\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -25,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="d38d1a92a2673d6e7966dc95ffe968146c38dc05">
+        sha1="20280ee882575f240d5a83bb0612e2c58bebb184">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b3101370c6e7218ed1288c5c4260cefb7c9dccf1\classes.dex" />
     </item>
     <item
@@ -36,33 +27,6 @@
         revision="25.0.2"
         sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.1.1_18e65a9e542382e4be602ce51462218e37e9ffa9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.1.1_7d6de8be9984f9fb73164fc15c7c4a1a32a1e193\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.1_39b892d6bea762170e2d7f4973ebfcbf44c98a2f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0d5cbbbfe040201c7569478b70a13b58fd11aab4">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-10.2.0_bb0ebac048dc675e9215dd20b5f4700374352b6a\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -97,17 +61,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="b829c8d33ce1ed81eca05473b8551ffae7d786cd">
+        sha1="b2541434540151c5571a98ad5f0c24b7ee716d0e">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_69cbf7ea9909bcdd35373f646e0eff61186bdca1\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.1.1_4bf5da40d635efe747d28528e192a9fee8766ff6\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -117,15 +72,6 @@
         revision="25.0.2"
         sha1="3d13e510077b35fe8e49930a627dd849ad5da0dc">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-10.2.0_662ec5e3f5124e0a1e571b69373b15d0367057d6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1ac56e5801e986583cbe27f2cce57f626cc7ff93">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-10.2.0_801c63159e8db44504641fa09146597b23d104c5\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -144,33 +90,6 @@
         revision="25.0.2"
         sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-10.2.0_276a6af6c440f9fbe66a6b0359390d398ee5ef8b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="48532a016bb0dfbe7970c147ce784598a515406b">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-10.2.0_d0c7a69a09e8a31a8954c25d96e285ebd8c26184\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-10.2.0_9943e3e0341a9683f094c3496b7834b2a1650bbf\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.1.1_86bd8fb0afad2c29a70be634a46a13c95f52e92f\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -210,21 +129,102 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
-        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-10.2.0_7e96995d6e2178babec8ed64c923bad93a7386c8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.1.1_326578dfec716a32e783fc14d6a4fff70c819945\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="94fca868854457ede6df15c902938468c71d579e">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-10.2.0_e91ac3f0185280ba0511d64303a11e2ea0bcffda\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.1.1_7d6de8be9984f9fb73164fc15c7c4a1a32a1e193\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.1_39b892d6bea762170e2d7f4973ebfcbf44c98a2f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d5cbbbfe040201c7569478b70a13b58fd11aab4">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-10.2.0_bb0ebac048dc675e9215dd20b5f4700374352b6a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.1.1_4bf5da40d635efe747d28528e192a9fee8766ff6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1ac56e5801e986583cbe27f2cce57f626cc7ff93">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-10.2.0_801c63159e8db44504641fa09146597b23d104c5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="48532a016bb0dfbe7970c147ce784598a515406b">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-10.2.0_d0c7a69a09e8a31a8954c25d96e285ebd8c26184\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-10.2.0_9943e3e0341a9683f094c3496b7834b2a1650bbf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.1.1_86bd8fb0afad2c29a70be634a46a13c95f52e92f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\10.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-10.2.0_7e96995d6e2178babec8ed64c923bad93a7386c8\classes.dex" />
     </item>
 
 </items>
