@@ -11,28 +11,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kdziurawiec.budgetapp.R;
-import com.example.kdziurawiec.budgetapp.model.User;
+import com.example.kdziurawiec.budgetapp.model.DatabaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A login screen that offers login via email/password.
@@ -148,7 +138,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         prefEditor.commit();
 
                         //creating user in firebase
-                        createUserInDb(userID, email, username);
+                        DatabaseHelper firebaseHalper = new DatabaseHelper();
+                        firebaseHalper.createUserInDb(userID, email, username);
+
                         if(isUserSignedIn){
                             //intent to CreateAccountActivity
                             Intent intent = new Intent(getBaseContext(), CreateAccountActivity.class);
@@ -168,22 +160,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
     }
-
-    private void createUserInDb(String userID, String email, String username){
-        Date date = new Date();
-        CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());
-        Map<String, String> accounts = new HashMap<>();
-
-        User newUser = new User(userID, username, email, stringDate.toString(),accounts); //reading in and creating transaction object
-
-        //connecting to firebase
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-
-        //DatabaseReference usersRef = dbRef.child("users").push(); //drilling down to transaction and setting it to tranRef
-        DatabaseReference usersRef = dbRef.child("users").child(userID); //drilling down to transaction and setting it to tranRef
-        usersRef.setValue(newUser); //adding transaction object to transaction in firebase
-    }
-
 
     @Override
     public void onClick(View v) {

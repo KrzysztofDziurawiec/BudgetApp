@@ -36,7 +36,7 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         //setting date on the edit text field for select date
-        String date = dayOfMonth +"-"+ month +"-"+ year;
+        String date = dayOfMonth +"-"+ (month+1) +"-"+ year;
         txtDate.setText(date);
     }
 }

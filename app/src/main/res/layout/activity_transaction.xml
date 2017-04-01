@@ -131,6 +131,8 @@
 
             <ListView
                 android:id="@+id/categoryList"
+                android:choiceMode="singleChoice"
+                android:listSelector="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_below="@+id/selectCategoryTextView"

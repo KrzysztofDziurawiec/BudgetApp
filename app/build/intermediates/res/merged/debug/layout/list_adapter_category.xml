@@ -7,8 +7,8 @@
     android:background="@color/windowBackground">
 
     <ImageView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="@dimen/icon_margin"
         app:srcCompat="@drawable/ic_wallet"
         android:layout_alignParentLeft="true"
@@ -18,7 +18,7 @@
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textSize="11pt"
+        android:textSize="@dimen/font_header_1"
         android:id="@+id/categoryTextView"
         android:layout_toRightOf="@+id/listIcon"/>
 

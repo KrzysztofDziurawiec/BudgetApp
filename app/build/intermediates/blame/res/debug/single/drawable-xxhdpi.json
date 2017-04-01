@@ -44,6 +44,10 @@
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xxhdpi\\ic_add_circle_outline.png"
     },
     {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_delete_forever_black.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xxhdpi\\ic_delete_forever_black.png"
+    },
+    {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_chart.png",
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xxhdpi\\ic_chart.png"
     },

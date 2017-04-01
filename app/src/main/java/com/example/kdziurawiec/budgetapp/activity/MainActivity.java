@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,21 +22,17 @@ import com.example.kdziurawiec.budgetapp.adapter.ViewPagerAdapter;
 import com.example.kdziurawiec.budgetapp.fragment.AccountFragment;
 import com.example.kdziurawiec.budgetapp.fragment.ChartFragment;
 import com.example.kdziurawiec.budgetapp.fragment.MembersFragment;
+import com.example.kdziurawiec.budgetapp.interfaces.AccountRetriever;
+import com.example.kdziurawiec.budgetapp.interfaces.UserRetriever;
 import com.example.kdziurawiec.budgetapp.model.Account;
+import com.example.kdziurawiec.budgetapp.model.DatabaseHelper;
 import com.example.kdziurawiec.budgetapp.model.MyApplication;
 import com.example.kdziurawiec.budgetapp.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity  {
     private FirebaseAuth mAuth;
     //creating firebaseAuth instance listener
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseHelper myFirebaseHelper;
     //MyApp class which stores values across activities
     MyApplication myApp;
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        myFirebaseHelper = new DatabaseHelper();
         //Checking if user is signed in. If not redirect to LoginActivity
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -66,7 +65,25 @@ public class MainActivity extends AppCompatActivity  {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    getUserFromDb(user.getUid().toString());
+
+                    myFirebaseHelper.getUserFromDb(user.getUid().toString(), new UserRetriever() {
+                        @Override
+                        public void get(User user) {
+                            //setting user obj in the MyApp class
+                            myApp.setUser(user);
+                            //calling shared preferences to set username
+                            SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor prefEditor = sharedPref.edit();
+                            //setting set pref of username
+                            prefEditor.putString(getString(R.string.pref_username), user.getUsername());
+                            prefEditor.commit();
+                        }
+
+                        @Override
+                        public void errorMessage(String message) {
+                            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+                        }
+                    });
                     // User is signed in
                     System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
                     Toast.makeText(getBaseContext(), "onAuthStateChanged:signed_in:" + user.getUid(), Toast.LENGTH_LONG).show();
@@ -97,31 +114,6 @@ public class MainActivity extends AppCompatActivity  {
         setupTabIcons(); //setting tab icons
     }
 
-    public void getUserFromDb(String userID){
-        //connecting to firebase
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        dbRef.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //creating user from DataSnapshot obj
-                User user = dataSnapshot.getValue(User.class);
-                //setting user obj in the MyApp class
-                myApp.setUser(user);
-                //calling shared preferences to set username
-                SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
-                SharedPreferences.Editor prefEditor = sharedPref.edit();
-                //setting set pref of username
-                prefEditor.putString(getString(R.string.pref_username), user.getUsername());
-                prefEditor.commit();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getBaseContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -148,7 +140,7 @@ public class MainActivity extends AppCompatActivity  {
         adapter.addFragment(new AccountFragment(), getString(R.string.tab_item_account));
         adapter.addFragment(new ChartFragment(), getString(R.string.tab_item_chart));
         adapter.addFragment(new MembersFragment(), getString(R.string.tab_item_members));
-
+        Fragment acc = new AccountFragment();
 
         viewPager.setAdapter(adapter);
 
@@ -205,9 +197,9 @@ public class MainActivity extends AppCompatActivity  {
     public void ShowAlertDialogWithListview()
     {
         List<String> mAccounts = new ArrayList<String>();
-        //looping through hashMap of accounts of current user and adding key to List
-        for(String key : myApp.getUser().getAccounts().keySet()){
-            mAccounts.add(key);
+        //looping through hashMap of accounts of current user and adding account Name to List
+        for(String accName : myApp.getUser().getAccounts().values()){
+            mAccounts.add(accName);
         }
 
         //Create sequence of items
@@ -217,8 +209,43 @@ public class MainActivity extends AppCompatActivity  {
         dialogBuilder.setItems(Accounts, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 String selectedText = Accounts[item].toString();  //Selected item in listview
-                getAccountFromDb(selectedText);
+                String selectedAccountId = "";
+                //looping through hashMap of accounts of current user and checking for account id when account name selected
+                for(String key : myApp.getUser().getAccounts().keySet()){
+                    if(myApp.getUser().getAccounts().get(key).equals(selectedText)){
+                        selectedAccountId = key;
+                    }
+                }
 
+                //getting account from firebase
+                myFirebaseHelper.getAccountFromDb(selectedAccountId, new AccountRetriever() {
+                    @Override
+                    public void get(Account account, String accountId, String message) {
+                        myApp.setCurrentAccount(account);
+                        myApp.setCurrentAccountId(accountId);
+                        //calling shared preferences to set account uid
+                        SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor prefEditor = sharedPref.edit();
+                        //setting set pref of account id and accountName
+                        prefEditor.putString(getString(R.string.pref_account_id),accountId);
+                        prefEditor.putString(getString(R.string.pref_accountName), account.getAccName());
+                        prefEditor.commit();
+                        //refresh fragments for current account
+/*                        Fragment currentFragment = getFragmentManager().findFragmentById(0);
+                        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                        fragTransaction.detach(currentFragment);
+                        fragTransaction.attach(currentFragment);
+                        fragTransaction.commit();*/
+
+                        setupViewPager(viewPager);
+                        setupTabIcons(); //setting tab icon
+                    }
+
+                    @Override
+                    public void errorMessage(String message) {
+                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
         //Create alert dialog object via builder
@@ -227,34 +254,4 @@ public class MainActivity extends AppCompatActivity  {
         alertDialogObject.show();
     }
 
-    public void getAccountFromDb(String accountID){
-        //connecting to firebase
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        dbRef.child("accounts").child(accountID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //creating account from DataSnapshot obj
-                Account acount = dataSnapshot.getValue(Account.class);
-                //setting user obj in the MyApp class
-                myApp.setCurrentAccount(acount);
-                myApp.setCurrentAccountId(dataSnapshot.getKey().toString());
-                //calling shared preferences to set account uid
-                SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
-                SharedPreferences.Editor prefEditor = sharedPref.edit();
-                //setting set pref of account id and accountName
-                prefEditor.putString(getString(R.string.pref_account_id), dataSnapshot.getKey().toString());
-                prefEditor.putString(getString(R.string.pref_accountName), acount.getAccName());
-                prefEditor.commit();
-                //refresh fragments for current account
-                setupViewPager(viewPager);
-                setupTabIcons(); //setting tab icon
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getBaseContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 }

@@ -2,17 +2,13 @@ package com.example.kdziurawiec.budgetapp.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,22 +17,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kdziurawiec.budgetapp.R;
-import com.example.kdziurawiec.budgetapp.activity.CreateAccountActivity;
-import com.example.kdziurawiec.budgetapp.activity.LoginActivity;
+import com.example.kdziurawiec.budgetapp.activity.MainActivity;
+import com.example.kdziurawiec.budgetapp.interfaces.AccountRetriever;
+import com.example.kdziurawiec.budgetapp.interfaces.UserRetriever;
+import com.example.kdziurawiec.budgetapp.model.Account;
+import com.example.kdziurawiec.budgetapp.model.DatabaseHelper;
 import com.example.kdziurawiec.budgetapp.model.User;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Owner on 07/03/2017.
@@ -44,7 +38,7 @@ import java.util.ArrayList;
 
 public class MembersFragment extends Fragment {
 
-
+    DatabaseHelper myFirebaseHelper;
     ListView mListView;
     MyAdapter adapter;
     ArrayList<String> memberList;
@@ -64,17 +58,17 @@ public class MembersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_members, container, false);
 
+        myFirebaseHelper = new DatabaseHelper();
+
         memberList = new ArrayList<>();
-        memberList.add("Bini");
-        memberList.add("Chris");
-        memberList.add("Keeya");
-        memberList.add("Crystal");
+
+        //getting shared pref for acount id
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+        String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
+
+        getListOfUsersForAccount(accountID);
 
 
-        mListView = (ListView) rootView.findViewById(R.id.membersList);
-        //ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, memberList);
-        adapter = new MyAdapter();
-        mListView.setAdapter(adapter);
 
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
@@ -113,8 +107,8 @@ public class MembersFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-              String  email = input.getText().toString();
-                getUserFromDbByEmail(email);
+                String  email = input.getText().toString();
+                addUserToAccount(email);
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -127,51 +121,55 @@ public class MembersFragment extends Fragment {
         builder.show();
     }
 
-    public void getUserFromDbByEmail(final String email){
-        //connecting to firebase
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        dbRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getListOfUsersForAccount(String accountID){
+        myFirebaseHelper.getAccountFromDb(accountID, new AccountRetriever() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot childEventSnapshot : dataSnapshot.getChildren()) {
-                    //creating user from DataSnapshot obj
-                    User user = childEventSnapshot.getValue(User.class);
-                    if(user.getEmail().equals(email)){
-                        Toast.makeText(getContext(), "Found user"+ user.getUsername(), Toast.LENGTH_LONG).show();
-                        addUserToAccountInDb(user);
-                        break;
-                    }else{
-                        Toast.makeText(getContext(), "Can't find user with "+email, Toast.LENGTH_LONG).show();
-                    }
+            public void get(Account account, String accountId, String message) {
+                for(String username : account.getUsers().values()){
+                     memberList.add(username);
                 }
+                mListView = (ListView) getView().findViewById(R.id.membersList);
+                //ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, memberList);
+                adapter = new MyAdapter();
+                mListView.setAdapter(adapter);
+
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
+            public void errorMessage(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void addUserToAccountInDb(User user){
+    public void addUserToAccount(String email){
+        //searching for user
+        myFirebaseHelper.getUserFromDbByEmail(email, new UserRetriever() {
+            @Override
+            public void get(User user) {
 
-        //getting shared pref for acount id
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
-        String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
-        String accountName = sharedPref.getString(getString(R.string.pref_accountName),null);
+                //getting shared pref for acount id
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+                String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
+                String accountName = sharedPref.getString(getString(R.string.pref_accountName),null);
+                //adding user to account and account to user
+                myFirebaseHelper.addUserToAccountInDb(user, accountID, accountName);
 
-        //connecting to firebase
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        //setting account key for current user
-        DatabaseReference usersRef = dbRef.child("users").child(user.getUserID()).child("accounts").child(accountID); //drilling down to user and setting it to current userRef
-        usersRef.setValue(accountName); //adding account key to current user for double entry in firebase
+                //refresh fragments for members
+                List<Fragment> fragmentsList = getFragmentManager().getFragments();
+                Fragment currentFragment = getFragmentManager().findFragmentById(fragmentsList.get(2).getId());
+                FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                fragTransaction.detach(currentFragment);
+                fragTransaction.attach(currentFragment);
+                fragTransaction.commit();
+            }
 
-        //setting user key for current account
-        DatabaseReference accountRef = dbRef.child("accounts").child(accountID).child("users").child(user.getUserID()); //drilling down to user and setting it to current userRef
-        accountRef.setValue(user.getUsername()); //adding account key to current user for double entry in firebase
+            @Override
+            public void errorMessage(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            }
+        });
     }
-
 
 
     //custom adapter list

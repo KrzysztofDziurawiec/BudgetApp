@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="@string/frag_title_members"
         android:textStyle="bold"
-        android:textSize="20dp" />
+        android:textSize="@dimen/font_header_2" />
 
     <ListView
         android:id="@+id/membersList"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,12 @@ import android.widget.Toast;
 import com.example.kdziurawiec.budgetapp.R;
 import com.example.kdziurawiec.budgetapp.activity.CreateAccountActivity;
 import com.example.kdziurawiec.budgetapp.activity.TransactionActivity;
+import com.example.kdziurawiec.budgetapp.interfaces.AccountRetriever;
+import com.example.kdziurawiec.budgetapp.interfaces.TransactionRetriever;
+import com.example.kdziurawiec.budgetapp.model.Account;
+import com.example.kdziurawiec.budgetapp.model.Category;
+import com.example.kdziurawiec.budgetapp.model.CategoryManager;
+import com.example.kdziurawiec.budgetapp.model.DatabaseHelper;
 import com.example.kdziurawiec.budgetapp.model.MyApplication;
 import com.example.kdziurawiec.budgetapp.model.Transaction;
 import com.google.firebase.database.ChildEventListener;
@@ -42,10 +49,12 @@ import java.util.Date;
 public class AccountFragment extends Fragment{
 
     MyApplication myApp;
+    DatabaseHelper myFirebaseHelper;
 
     ListView mListView;
     MyAdapter adapter;
     ArrayList<Transaction> transactionList;
+    TextView titleTV, balanceTV, startBalanceTV, totIncomeTV, totExpenseTV;
 
 
     public AccountFragment() {
@@ -65,8 +74,13 @@ public class AccountFragment extends Fragment{
 
         myApp = ((MyApplication) getActivity().getApplicationContext());
 
-        TextView balanceTextView = (TextView) rootView.findViewById(R.id.balanceTextView);
-        balanceTextView.setText("Current balance is : £259.99");
+        titleTV= (TextView) rootView.findViewById(R.id.accTitleTextView);
+        balanceTV= (TextView) rootView.findViewById(R.id.balanceTextView);
+        startBalanceTV= (TextView) rootView.findViewById(R.id.startBalanceTextView);
+        totIncomeTV= (TextView) rootView.findViewById(R.id.totIncomeTextView);
+        totExpenseTV= (TextView) rootView.findViewById(R.id.totExpenseTextView);
+
+
 
         transactionList = new ArrayList<Transaction>();
 
@@ -75,37 +89,46 @@ public class AccountFragment extends Fragment{
         SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
 
+
        // MyApplication appl = (MyApplication)(getActivity().getApplication());
 //       if(myApp.getCurrentAccountId()!=null) {
 //           String accountID2 = myApp.getCurrentAccountId().toString();
 //       }
 
-
-
-        //connecting to firebase
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-
-        dbRef.child("transactions").child(accountID).addValueEventListener(new ValueEventListener() {
-            //firebase event listener
+        myFirebaseHelper = new DatabaseHelper();
+        myFirebaseHelper.getAccountFromDb(accountID, new AccountRetriever() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void get(Account account, String accountId, String message) {
+                myApp.setCurrentAccount(account);
+                myApp.setCurrentAccountId(accountId);
+                //nested getTransactions inside getAccount becouse need to have account callback first
+                myFirebaseHelper.getTransactionsForAccountFromDb(myApp.getCurrentAccountId(), new TransactionRetriever() {
+                    @Override
+                    public void get(Transaction transaction, String accountId, String message) {
 
-                //looping through results, creating transaction objects and adding them to the transactionList
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Transaction transFromFirabase = ds.getValue(Transaction.class);
-                    transactionList.add(transFromFirabase);
-                }
+                    }
 
-                ListView mListView = (ListView) getView().findViewById(R.id.transactionList);
-                adapter = new MyAdapter();
-                mListView.setAdapter(adapter);
-               // adapter.notifyDataSetChanged();
+                    @Override
+                    public void getTransactions(ArrayList<Transaction> transactionListResults, String accountId, String message) {
+                        transactionList = transactionListResults;
+                        ListView mListView = (ListView) getView().findViewById(R.id.transactionList);
+                        adapter = new MyAdapter();
+                        mListView.setAdapter(adapter);
+
+                        //calculating current balance
+                        calculateBalance(transactionList, myApp.getCurrentAccount());
+                    }
+
+                    @Override
+                    public void errorMessage(String message) {
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-                //Toast.makeText(getActivity(), databaseError.toString(), Toast.LENGTH_LONG).show();
+            public void errorMessage(String message) {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -129,6 +152,29 @@ public class AccountFragment extends Fragment{
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    public void calculateBalance(ArrayList<Transaction> transList, Account account){
+
+        Double balance = account.getStaringBalance();
+        Double totIncome = balance;
+        Double totExpense = 0.0;
+        for(Transaction trans : transList){
+            //checking if transaction is income or expense TO BE IMPLEMENTED
+            if(0>1){
+                balance = balance+ trans.getAmount();
+                totIncome = totIncome + trans.getAmount();
+            }else{
+                balance = balance - trans.getAmount();
+                totExpense = totExpense + trans.getAmount();
+            }
+
+        }
+        titleTV.setText(account.getAccName());
+        startBalanceTV.setText("Starting balance: £" + account.getStaringBalance());
+        totIncomeTV.setText("Total income: £" + totIncome);
+        totExpenseTV.setText("Total expense: £" + totExpense);
+        balanceTV.setText("Current balance: £" + balance);
     }
 
 
@@ -165,7 +211,20 @@ public class AccountFragment extends Fragment{
             ImageView icon = (ImageView) view.findViewById(R.id.listIcon);
             String category = transactionList.get(index).getCategory();
 
-            icon.setImageResource(R.drawable.ic_category_4);
+            CategoryManager categoryManager = new CategoryManager();
+            //searching for matching category
+            for(Category cat : categoryManager.getExpenseCategoryList()){
+                String image = cat.getImageResource();
+                String backgroundColor = cat.getBackgroundColor();
+                //if category name match assign image and color
+                if(category.toUpperCase().equals(cat.getName().toUpperCase())){
+                    icon.setImageResource(getResources().getIdentifier(image, "drawable", getContext().getPackageName()));
+                    int backgroundColor2 = ContextCompat.getColor(getContext(), getResources().getIdentifier(backgroundColor, "color", getContext().getPackageName())); ;
+                    icon.getBackground().setColorFilter(backgroundColor2, PorterDuff.Mode.MULTIPLY);
+                }
+            }
+
+/*            icon.setImageResource(R.drawable.ic_category_4);
             icon.getBackground().setColorFilter(getResources().getColor(R.color.colorIconRed), PorterDuff.Mode.MULTIPLY);
 
             if(category.toUpperCase().equals((getResources().getString(R.string.category_1)).toUpperCase())){
@@ -187,7 +246,7 @@ public class AccountFragment extends Fragment{
             else if(category.toUpperCase().equals((getResources().getString(R.string.category_5)).toUpperCase())){
                 icon.setImageResource(R.drawable.ic_category_5);
                 icon.getBackground().setColorFilter(getResources().getColor(R.color.colorIconBlueGrey), PorterDuff.Mode.MULTIPLY);
-            }
+            }*/
 
             return view;
         }

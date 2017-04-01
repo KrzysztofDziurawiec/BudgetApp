@@ -9,4 +9,10 @@
     <dimen name="nav_drawer_width">260dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="icon_margin">16dp</dimen>
+
+    <!--font size-->
+    <dimen name="font_header_1">10pt</dimen>
+    <dimen name="font_header_2">9pt</dimen>
+    <dimen name="font_header_3">8pt</dimen>
+    <dimen name="font_text">6pt</dimen>
 </resources>

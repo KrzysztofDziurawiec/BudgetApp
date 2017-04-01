@@ -3,11 +3,11 @@ package com.example.kdziurawiec.budgetapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kdziurawiec.budgetapp.R;
+import com.example.kdziurawiec.budgetapp.interfaces.TransactionRetriever;
+import com.example.kdziurawiec.budgetapp.model.DatabaseHelper;
 import com.example.kdziurawiec.budgetapp.model.MyApplication;
 import com.example.kdziurawiec.budgetapp.model.Transaction;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class TransactionActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener, View.OnClickListener {
+public class TransactionActivity extends AppCompatActivity implements  View.OnClickListener {
 
     private Toolbar toolbar;
     private ListView mListView;
@@ -39,9 +39,10 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
     private ArrayList<String> categoryList;
     private String selectedCategory;
     private Double amount;
-    private DatabaseReference dbRef;
+    private DatabaseHelper myFirebaseHelper;
     //MyApp class which stores values across activities
     MyApplication myApp;
+    View updateview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,17 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
         //ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, memberList);
         adapter = new MyAdapter();
         mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(this);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (updateview != null) updateview.setBackgroundColor(Color.TRANSPARENT);
+                updateview = view;
+
+                view.setBackgroundColor( getResources().getColor(R.color.colorPrimary));;
+                selectedCategory= categoryList.get(position);
+            }
+        });
     }
 
     //return to MainActivity when toolbar back btn pressed
@@ -79,10 +90,6 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
         return true;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        selectedCategory= categoryList.get(position);
-    }
 
     @Override
     public void onClick(View v) {
@@ -95,7 +102,7 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
         EditText amount_et = (EditText)findViewById(R.id.amountEditText);
         amount = Double.parseDouble(amount_et.getText().toString());
 
-        //getting shared pref for acount id
+        //getting shared pref for account id
         SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
 
@@ -105,7 +112,7 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
         Date date = new Date();
         CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());
 
-        // Check for a valid password.
+        // Check for a valid amount.
         if ((amount == null)||(amount==0)) {
             amount_et.setError(getString(R.string.error_field_required_transaction));
             focusView = amount_et;
@@ -114,17 +121,28 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
 
             Transaction newTransaction = new Transaction(username, stringDate.toString(),selectedCategory,amount);
 
-            //connecting to firebase
-            dbRef = FirebaseDatabase.getInstance().getReference();
+            // creating new transaction in firebase
+            myFirebaseHelper = new DatabaseHelper();
+            myFirebaseHelper.createTransactionInDb(newTransaction, accountID, new TransactionRetriever() {
+                @Override
+                public void get(Transaction transaction, String accountId, String message) {
+                    Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+                    //intent to CreateAccountActivity
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
-            DatabaseReference transRef = dbRef.child("transactions").child(accountID).push(); //drilling down to transactions and setting it to transRef
-            transRef.setValue(newTransaction); //adding transaction object to account id in transactions in firebase
-            Toast.makeText(getBaseContext(), "Transaction was  added successfully", Toast.LENGTH_LONG).show();
+                @Override
+                public void getTransactions(ArrayList<Transaction> transactionList, String accountId, String message) {
 
-            //intent to CreateAccountActivity
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+                }
+
+                @Override
+                public void errorMessage(String message) {
+                    Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
     }

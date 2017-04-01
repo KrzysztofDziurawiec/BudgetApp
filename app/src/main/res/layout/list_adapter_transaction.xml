@@ -7,8 +7,8 @@
     android:background="@color/windowBackground">
 
     <ImageView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="@dimen/icon_margin"
         app:srcCompat="@drawable/ic_wallet"
         android:layout_alignParentLeft="true"
@@ -31,10 +31,16 @@
         android:layout_centerInParent="true"
         android:id="@+id/linearLayout"
         android:layout_toRightOf="@+id/listIcon">
-        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:textSize="11pt"
-            android:id="@+id/trans_title" />
-        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:textSize="7pt"
-            android:id="@+id/trans_desc" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_header_2"
+                android:id="@+id/trans_title" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_text"
+                android:id="@+id/trans_desc" />
     </LinearLayout>
 
     <TextView
@@ -42,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginRight="@dimen/icon_margin"
-        android:textSize="11pt"
+        android:textSize="@dimen/font_header_1"
         android:id="@+id/trans_amount"
         android:layout_alignParentRight="true"/>
 
