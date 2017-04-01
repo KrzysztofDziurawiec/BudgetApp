@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.kdziurawiec.budgetapp.R;
 import com.example.kdziurawiec.budgetapp.activity.CreateAccountActivity;
 import com.example.kdziurawiec.budgetapp.activity.TransactionActivity;
+import com.example.kdziurawiec.budgetapp.model.MyApplication;
 import com.example.kdziurawiec.budgetapp.model.Transaction;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,8 @@ import java.util.Date;
  */
 
 public class AccountFragment extends Fragment{
+
+    MyApplication myApp;
 
     ListView mListView;
     MyAdapter adapter;
@@ -60,37 +63,24 @@ public class AccountFragment extends Fragment{
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
+        myApp = ((MyApplication) getActivity().getApplicationContext());
+
         TextView balanceTextView = (TextView) rootView.findViewById(R.id.balanceTextView);
         balanceTextView.setText("Current balance is : £259.99");
 
         transactionList = new ArrayList<Transaction>();
 
-/*        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        transactionList = new ArrayList<>();
-        transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
-        transactionList.add(new Transaction("Chris",date,"Petrol",13.00));
-        transactionList.add(new Transaction("Bini",date,"Grocery",43.35));
-        transactionList.add(new Transaction("Chris",date,"Cinema",27.99));
-        transactionList.add(new Transaction("Keeya",date,"Takeaway",23.81));
-        transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
-        transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
-        transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
-        transactionList.add(new Transaction("Chris",date,"Petrol",13.00));
-        transactionList.add(new Transaction("Bini",date,"Grocery",43.35));
-        transactionList.add(new Transaction("Keeya",date,"Cinema",27.99));
-        transactionList.add(new Transaction("Bini",date,"Takeaway",23.81));
-        transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
-        transactionList.add(new Transaction("Bini",date,"Shopping",12.81));
-
-
-        mListView = (ListView) rootView.findViewById(R.id.transactionList);
-        //ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, listItems );
-        adapter = new MyAdapter();
-        mListView.setAdapter(adapter);*/
 
         //getting shared pref for acount id
         SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
+
+       // MyApplication appl = (MyApplication)(getActivity().getApplication());
+//       if(myApp.getCurrentAccountId()!=null) {
+//           String accountID2 = myApp.getCurrentAccountId().toString();
+//       }
+
+
 
         //connecting to firebase
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();

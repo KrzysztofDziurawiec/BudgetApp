@@ -82,17 +82,22 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         }
 
         Map<String, String> users = new HashMap<>();
-        //getting shared pref for user uid
-        SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+
+        //getting user uid from myApp
+        //String userID = myApp.getUser().getUserID();
+       // users.put(userID,"true");
+        //getting shared pref for user id
+        SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
-        users.put(userID,"true");
+        String username = sharedPref.getString(getString(R.string.pref_username),null);
+        users.put(userID,username);
 
         Account newAccount = new Account(accName, accStartingBalance, accStartDate, cycle, users); //reading in and creating account object
 
-        createAccount(newAccount, userID);
+        createAccountInDb(newAccount, userID);
     }
 
-    public void createAccount(Account newAccount, final String userID){
+    public void createAccountInDb(Account newAccount, final String userID){
         //connecting to firebase
         dbRef = FirebaseDatabase.getInstance().getReference();
 
@@ -100,16 +105,14 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         accountsRef.setValue(newAccount); //adding account object to accounts in firebase
         //getting key of new account
         final String accountKey = accountsRef.getKey();
-
-        //setting in MyApp values for account and id
-        myApp.setCurrentAccountId(accountKey);
-        myApp.setCurrentAccount(newAccount);
+        final String accountName = newAccount.getAccName();
 
         //calling shared preferences to set account uid
         SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         //setting set pref of account id
         prefEditor.putString(getString(R.string.pref_account_id), accountKey);
+        prefEditor.putString(getString(R.string.pref_accountName), accountName);
         prefEditor.commit();
 
         dbRef.child("accounts").addValueEventListener(new ValueEventListener() {
@@ -121,7 +124,10 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
                 //setting account key for current user
                 DatabaseReference usersRef = dbRef.child("users").child(userID).child("accounts").child(accountKey); //drilling down to user and setting it to current userRef
-                usersRef.setValue("true"); //adding account key to current user for double entry in firebase
+                usersRef.setValue(accountName); //adding account key to current user for double entry in firebase
+
+                //getting account from firebase and adding it to myApp class as a account obj
+                getAccountFromDb(accountKey);
 
                 //intent to CreateAccountActivity
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
@@ -133,6 +139,26 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(getBaseContext(), "eror in add account:" +databaseError.toString(), Toast.LENGTH_LONG).show();
                 System.out.println("eror in add account:" + databaseError.toString());
+            }
+        });
+    }
+
+    public void getAccountFromDb(String accountID){
+        //connecting to firebase
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef.child("accounts").child(accountID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //creating account from DataSnapshot obj
+                Account acount = dataSnapshot.getValue(Account.class);
+                //setting user obj in the MyApp class
+                myApp.setCurrentAccount(acount);
+                myApp.setCurrentAccountId(dataSnapshot.getKey().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getBaseContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -160,78 +186,5 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         return true;
     }
 
-    public User getUser(){
 
-        //getting shared pref for user uid
-        SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
-        String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
-
-        //connecting to firebase
-        dbRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference usersRef = dbRef.child("users"); //drilling down to transaction and setting it to tranRef
-        Query query =  usersRef.equalTo(userID);
-        System.out.println("QUERY:"+query.toString());
-        usersRef.addValueEventListener(new ValueEventListener() {
-            //firebase event listener
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getBaseContext(), "Your transaction was  added successfully", Toast.LENGTH_LONG).show();
-                String transResults = "";
-                final ArrayList<User> transactionList = new ArrayList<User>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    User transFromFirabase = ds.getValue(User.class);
-                    transResults = transResults + transFromFirabase.toString() +"\n";
-                    transactionList.add(transFromFirabase);
-                }
-                String[] listItems = new String[transactionList.size()];
-
-                for(int i=0; i<transactionList.size();i++){
-                    User trans = transactionList.get(i);
-                    listItems[i] = trans.toString();
-                }
-        }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-                Toast.makeText(getBaseContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                System.out.println(dataSnapshot.getKey());
-                Toast.makeText(getBaseContext(), "Your user was found successfully", Toast.LENGTH_LONG).show();
-                User user = dataSnapshot.getValue(User.class);
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                System.out.println(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                System.out.println(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println(databaseError.toString());
-            }
-        });
-
-
-
-        User user = new User();
-
-        return user;
-    }
 }

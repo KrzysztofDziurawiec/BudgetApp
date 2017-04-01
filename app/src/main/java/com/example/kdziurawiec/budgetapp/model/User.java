@@ -3,6 +3,7 @@ package com.example.kdziurawiec.budgetapp.model;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Owner on 25/03/2017.
@@ -13,11 +14,11 @@ public class User {
     String username;
     String email;
     String created_at;
-    List<String> accounts;
+    Map<String, String> accounts;
 
     public User(){}
 
-    public User(String userIdIn, String usernameIn, String emailIn,String created_atIn, List<String> accountsIn){
+    public User(String userIdIn, String usernameIn, String emailIn,String created_atIn, Map<String, String> accountsIn){
         this.userID = userIdIn;
         this.username = usernameIn;
         this.email = emailIn;
@@ -33,7 +34,7 @@ public class User {
 
     public String getCreated_at() {return created_at;}
 
-    public List<String> getAccounts() {return accounts;}
+    public Map<String, String> getAccounts() {return accounts;}
 
 
     @Override

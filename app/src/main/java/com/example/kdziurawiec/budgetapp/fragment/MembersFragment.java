@@ -1,7 +1,9 @@
 package com.example.kdziurawiec.budgetapp.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
@@ -11,11 +13,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,6 +29,12 @@ import android.widget.Toast;
 import com.example.kdziurawiec.budgetapp.R;
 import com.example.kdziurawiec.budgetapp.activity.CreateAccountActivity;
 import com.example.kdziurawiec.budgetapp.activity.LoginActivity;
+import com.example.kdziurawiec.budgetapp.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -71,8 +81,8 @@ public class MembersFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Adding member to the group", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //calling dialog for adding member by email
+                showAddMemberDialog();
             }
         });
 
@@ -87,6 +97,80 @@ public class MembersFragment extends Fragment {
     }
 
 
+    public void showAddMemberDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.dialog_add_member_title);
+        // I'm using fragment here so I'm using getView() to provide ViewGroup
+        // but you can provide here any other instance of ViewGroup from your Fragment / Activity
+        View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_member_email_input, (ViewGroup) getView(), false);
+        // Set up the input
+        final EditText input = (EditText) viewInflated.findViewById(R.id.input);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        builder.setView(viewInflated);
+
+        // Set up the buttons
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+              String  email = input.getText().toString();
+                getUserFromDbByEmail(email);
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void getUserFromDbByEmail(final String email){
+        //connecting to firebase
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot childEventSnapshot : dataSnapshot.getChildren()) {
+                    //creating user from DataSnapshot obj
+                    User user = childEventSnapshot.getValue(User.class);
+                    if(user.getEmail().equals(email)){
+                        Toast.makeText(getContext(), "Found user"+ user.getUsername(), Toast.LENGTH_LONG).show();
+                        addUserToAccountInDb(user);
+                        break;
+                    }else{
+                        Toast.makeText(getContext(), "Can't find user with "+email, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void addUserToAccountInDb(User user){
+
+        //getting shared pref for acount id
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+        String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
+        String accountName = sharedPref.getString(getString(R.string.pref_accountName),null);
+
+        //connecting to firebase
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        //setting account key for current user
+        DatabaseReference usersRef = dbRef.child("users").child(user.getUserID()).child("accounts").child(accountID); //drilling down to user and setting it to current userRef
+        usersRef.setValue(accountName); //adding account key to current user for double entry in firebase
+
+        //setting user key for current account
+        DatabaseReference accountRef = dbRef.child("accounts").child(accountID).child("users").child(user.getUserID()); //drilling down to user and setting it to current userRef
+        accountRef.setValue(user.getUsername()); //adding account key to current user for double entry in firebase
+    }
 
 
 

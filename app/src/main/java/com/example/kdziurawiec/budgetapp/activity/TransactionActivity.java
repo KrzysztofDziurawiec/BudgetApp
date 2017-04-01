@@ -40,6 +40,8 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
     private String selectedCategory;
     private Double amount;
     private DatabaseReference dbRef;
+    //MyApp class which stores values across activities
+    MyApplication myApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
         setSupportActionBar(toolbar);
         //sets the toolbar back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        myApp = ((MyApplication) getApplicationContext());
 
         Button addTransBtn = (Button)findViewById(R.id.addTransactionBtn);
         addTransBtn.setOnClickListener(this);
@@ -77,9 +81,6 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        System.out.println("VIEW:" + view.toString());
-        System.out.println("POSITION:" + position);
-        System.out.println("ID:" + id);
         selectedCategory= categoryList.get(position);
     }
 
@@ -98,9 +99,8 @@ public class TransactionActivity extends AppCompatActivity implements  AdapterVi
         SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
         String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
 
-        //getting shared pref for username
-        sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
-        String username = sharedPref.getString(getString(R.string.pref_username),null);
+        //getting username from myApp
+        String username = myApp.getUser().getUsername();
 
         Date date = new Date();
         CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());

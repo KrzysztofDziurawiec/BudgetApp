@@ -5,9 +5,10 @@
     <string name="pref_user_uid">user_uid</string>
     <string name="pref_username">username</string>
     <string name="pref_account_id">account_id</string>
+    <string name="pref_accountName">account_name</string>
 
     <!--menu items-->
-    <string name="action_settings">Settings</string>
+    <string name="action_accounts">Select account</string>
     <string name="action_add_account">Add account</string>
     <string name="action_log_in">Log in</string>
     <string name="action_log_out">Log out</string>
@@ -26,6 +27,13 @@
     <string name="title_home">Welcome!</string>
     <string name="title_new_account">Create new account</string>
     <string name="title_activity_login">Sign in</string>
+
+    <!--dialog accounts list-->
+    <string name="dialog_accounts_title">Select account:</string>
+
+    <!--dialog add member-->
+    <string name="dialog_add_member_title">Add member:</string>
+    <string name="dialog_add_member_email_hint">Add member:</string>
 
     <!--TransactionActivity-->
     <string name="et_add_trans">New Transaction</string>

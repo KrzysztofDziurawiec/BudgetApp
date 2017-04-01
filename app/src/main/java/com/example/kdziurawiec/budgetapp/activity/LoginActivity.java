@@ -30,7 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A login screen that offers login via email/password.
@@ -138,6 +140,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //getting shared pref for user uid
                         SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings",Context.MODE_PRIVATE);
                         String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
+
+                        //calling shared preferences to set username
+                        SharedPreferences.Editor prefEditor = sharedPref.edit();
+                        //setting set pref of username
+                        prefEditor.putString(getString(R.string.pref_username), username);
+                        prefEditor.commit();
+
                         //creating user in firebase
                         createUserInDb(userID, email, username);
                         if(isUserSignedIn){
@@ -163,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void createUserInDb(String userID, String email, String username){
         Date date = new Date();
         CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());
-        List<String> accounts = new ArrayList<String>();
+        Map<String, String> accounts = new HashMap<>();
 
         User newUser = new User(userID, username, email, stringDate.toString(),accounts); //reading in and creating transaction object
 

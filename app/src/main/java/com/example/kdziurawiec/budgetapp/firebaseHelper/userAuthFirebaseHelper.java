@@ -20,7 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Owner on 25/03/2017.
@@ -35,7 +37,7 @@ public class userAuthFirebaseHelper {
     private void createUserInDb(String userID, String email, String username){
         Date date = new Date();
         CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());
-        List<String> accounts = new ArrayList<String>();
+        Map<String, String> accounts =  new HashMap<>();
 
         User newUser = new User(userID, email, username, stringDate.toString(),accounts); //reading in and creating transaction object
 
@@ -45,4 +47,6 @@ public class userAuthFirebaseHelper {
         DatabaseReference usersRef = dbRef.child("users").push(); //drilling down to transaction and setting it to tranRef
         usersRef.setValue(newUser); //adding transaction object to transaction in firebase
     }
+
+
 }
