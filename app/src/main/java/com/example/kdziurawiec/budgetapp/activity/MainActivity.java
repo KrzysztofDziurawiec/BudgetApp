@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +33,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     //creating firebaseAuth instance
     private FirebaseAuth mAuth;
@@ -43,6 +42,10 @@ public class MainActivity extends AppCompatActivity  {
     private DatabaseHelper myFirebaseHelper;
     //MyApp class which stores values across activities
     MyApplication myApp;
+    private ViewPagerAdapter adapter;
+    private ChartFragment chartFragment;
+    private AccountFragment accountFragment;
+    private MembersFragment membersFragment;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -77,13 +80,39 @@ public class MainActivity extends AppCompatActivity  {
                             //setting set pref of username
                             prefEditor.putString(getString(R.string.pref_username), user.getUsername());
                             prefEditor.commit();
+
+                            //setting first account as default if user sign out
+/*                            if(myApp.getCurrentAccountId().equals("")){
+                                String accountId = user.getAccounts().keySet().toArray()[0].toString();
+                                selectAccountAsDefault(accountId);
+                            }*/
+
                         }
 
                         @Override
                         public void errorMessage(String message) {
                             Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
                         }
+
+                        @Override
+                        public void getUsers(ArrayList<User> usersList, String message) {
+
+                        }
                     });
+
+                    //initialize fragments
+                    chartFragment = new ChartFragment();
+                    accountFragment = new AccountFragment();
+                    membersFragment = new MembersFragment();
+
+                    //setting viePager and tabLayout for tabs
+                    viewPager = (ViewPager) findViewById(R.id.viewpager);
+                    setupViewPager(viewPager);
+
+                    tabLayout = (TabLayout) findViewById(R.id.tabs);
+                    tabLayout.setupWithViewPager(viewPager);
+                    setupTabIcons(); //setting tab icons
+
                     // User is signed in
                     System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
                     Toast.makeText(getBaseContext(), "onAuthStateChanged:signed_in:" + user.getUid(), Toast.LENGTH_LONG).show();
@@ -98,6 +127,7 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
         };
+
         myApp = ((MyApplication) getApplicationContext());
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -105,13 +135,8 @@ public class MainActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
 
-        //setting viePager and tabLayout for tabs
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons(); //setting tab icons
+
     }
 
     @Override
@@ -136,17 +161,21 @@ public class MainActivity extends AppCompatActivity  {
     //setting viePager and tabLayout for tabs
     private void setupViewPager(ViewPager viewPager) {
         //creating adapter for tabs
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AccountFragment(), getString(R.string.tab_item_account));
-        adapter.addFragment(new ChartFragment(), getString(R.string.tab_item_chart));
-        adapter.addFragment(new MembersFragment(), getString(R.string.tab_item_members));
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(accountFragment, getString(R.string.tab_item_account));
+        adapter.addFragment(chartFragment, getString(R.string.tab_item_chart));
+        adapter.addFragment(membersFragment, getString(R.string.tab_item_members));
         Fragment acc = new AccountFragment();
 
         viewPager.setAdapter(adapter);
 
     }
 
-
+    //implementing interface and sending ArrayList<Transaction> to chart fragment
+/*    @Override
+    public void receiveTransList(ArrayList<Transaction> transactionList) {
+        chartFragment.setTransList(transactionList);
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,6 +210,7 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             case R.id.action_log_out:
                 mAuth.signOut();
+                myApp.setCurrentAccountId("");
                 Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_app_info:
@@ -193,6 +223,8 @@ public class MainActivity extends AppCompatActivity  {
 
         }
     }
+
+
 
     public void ShowAlertDialogWithListview()
     {
@@ -216,36 +248,8 @@ public class MainActivity extends AppCompatActivity  {
                         selectedAccountId = key;
                     }
                 }
-
                 //getting account from firebase
-                myFirebaseHelper.getAccountFromDb(selectedAccountId, new AccountRetriever() {
-                    @Override
-                    public void get(Account account, String accountId, String message) {
-                        myApp.setCurrentAccount(account);
-                        myApp.setCurrentAccountId(accountId);
-                        //calling shared preferences to set account uid
-                        SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor prefEditor = sharedPref.edit();
-                        //setting set pref of account id and accountName
-                        prefEditor.putString(getString(R.string.pref_account_id),accountId);
-                        prefEditor.putString(getString(R.string.pref_accountName), account.getAccName());
-                        prefEditor.commit();
-                        //refresh fragments for current account
-/*                        Fragment currentFragment = getFragmentManager().findFragmentById(0);
-                        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                        fragTransaction.detach(currentFragment);
-                        fragTransaction.attach(currentFragment);
-                        fragTransaction.commit();*/
-
-                        setupViewPager(viewPager);
-                        setupTabIcons(); //setting tab icon
-                    }
-
-                    @Override
-                    public void errorMessage(String message) {
-                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
-                    }
-                });
+                selectAccountAsDefault(selectedAccountId);
             }
         });
         //Create alert dialog object via builder
@@ -254,4 +258,30 @@ public class MainActivity extends AppCompatActivity  {
         alertDialogObject.show();
     }
 
+    public void selectAccountAsDefault(String accountId){
+        String selectedAccountId = accountId;
+        //getting account from firebase
+        myFirebaseHelper.getAccountFromDb(selectedAccountId, new AccountRetriever() {
+            @Override
+            public void get(Account account, String accountId, String message) {
+                myApp.setCurrentAccount(account);
+                myApp.setCurrentAccountId(accountId);
+                //calling shared preferences to set account uid
+                SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+                SharedPreferences.Editor prefEditor = sharedPref.edit();
+                //setting set pref of account id and accountName
+                prefEditor.putString(getString(R.string.pref_account_id),accountId);
+                prefEditor.putString(getString(R.string.pref_accountName), account.getAccName());
+                prefEditor.commit();
+
+                setupViewPager(viewPager);
+                setupTabIcons(); //setting tab icon
+            }
+
+            @Override
+            public void errorMessage(String message) {
+                Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

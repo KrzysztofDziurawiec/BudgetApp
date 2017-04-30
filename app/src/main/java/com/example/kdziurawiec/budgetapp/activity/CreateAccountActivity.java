@@ -59,8 +59,18 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         RadioButton cycleWeekly_rb = (RadioButton) findViewById(R.id.acc_radio_weekly);
         RadioButton cycleMonthly_rb = (RadioButton) findViewById(R.id.acc_radio_monthly);
 
-        String accName = accName_et.getText().toString();
-        Double accStartingBalance = Double.parseDouble(accStartingBalance_et.getText().toString());
+        String accName = getString(R.string.tab_item_account);
+        Double accStartingBalance = 0.0;
+        try{
+            accName = accName_et.getText().toString();
+        }catch (NumberFormatException e){
+            Toast.makeText(getBaseContext(), R.string.error_field_required_acc_name, Toast.LENGTH_LONG).show();
+        }
+        try{
+            accStartingBalance = Double.parseDouble(accStartingBalance_et.getText().toString());
+        }catch (NumberFormatException e){
+            Toast.makeText(getBaseContext(), R.string.error_field_required_start_balance, Toast.LENGTH_LONG).show();
+        }
         String accStartDate = accStartDate_et.getText().toString();
         String cycle;
         if (cycleWeekly_rb.isChecked()){

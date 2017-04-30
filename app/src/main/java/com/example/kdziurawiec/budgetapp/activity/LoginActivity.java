@@ -17,12 +17,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kdziurawiec.budgetapp.R;
+import com.example.kdziurawiec.budgetapp.interfaces.AccountRetriever;
+import com.example.kdziurawiec.budgetapp.interfaces.UserRetriever;
+import com.example.kdziurawiec.budgetapp.model.Account;
 import com.example.kdziurawiec.budgetapp.model.DatabaseHelper;
+import com.example.kdziurawiec.budgetapp.model.MyApplication;
+import com.example.kdziurawiec.budgetapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 /**
  * A login screen that offers login via email/password.
@@ -33,6 +40,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     //creating firebaseAuth instance listener
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private SharedPreferences sharedPref;
+    private MyApplication myApp;
+    private DatabaseHelper myFirebaseHelper;
 
     private Button signUpBtn;
     private Button logInBtn;
@@ -44,6 +54,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
+        myApp = new MyApplication();
+        myFirebaseHelper = new DatabaseHelper();
 
         Button newUserBtn = (Button)findViewById(R.id.newUserBtn);
         Button existingUserBtn = (Button)findViewById(R.id.existingUserBtn);
@@ -67,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(getBaseContext(), "onAuthStateChanged:signed_in:" + user.getUid(), Toast.LENGTH_LONG).show();
 
                     //calling shared preferences to set user uid
-                    SharedPreferences sharedPref = getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefEditor = sharedPref.edit();
                     //setting set pref of user uid
                     prefEditor.putString(getString(R.string.pref_user_uid), user.getUid());
@@ -101,13 +113,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        System.out.println("logInUserWithEmail:onComplete:" + task.isSuccessful());
                         Toast.makeText(getBaseContext(), "logInUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_LONG).show();
+                        //sets up user default account from list of accounts
+                        setUserAccount();
                         //intent to MainActivity
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+/*                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
-                        showProgress(true);
+                        showProgress(true);*/
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -124,11 +137,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        System.out.println("createUserWithEmail:onComplete:" + task.isSuccessful());
                         Toast.makeText(getBaseContext(), "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
                         //getting shared pref for user uid
-                        SharedPreferences sharedPref = getBaseContext().getSharedPreferences("BudgetAppSettings",Context.MODE_PRIVATE);
                         String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
 
                         //calling shared preferences to set username
@@ -148,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             finish();
                             showProgress(true);
                         }else{
-                            Toast.makeText(getBaseContext(), "please check your email is correct", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "This email is already in use", Toast.LENGTH_SHORT).show();
                         }
 
                         // If sign in fails, display a message to the user. If sign in succeeds
@@ -333,5 +344,66 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             userFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    public void setUserAccount(){
+        //getting shared pref for user id
+        String userID = sharedPref.getString(getString(R.string.pref_user_uid),null);
+
+        myFirebaseHelper.getUserFromDb(userID, new UserRetriever() {
+            @Override
+            public void get(User user) {
+                //setting user obj in the MyApp class
+                myApp.setUser(user);
+                //calling shared preferences to set username
+                SharedPreferences.Editor prefEditor = sharedPref.edit();
+                //setting set pref of username
+                prefEditor.putString(getString(R.string.pref_username), user.getUsername());
+                prefEditor.commit();
+
+                //setting first account as default if user sign out
+                    String accountId = user.getAccounts().keySet().toArray()[0].toString();
+                    selectAccountAsDefault(accountId);
+            }
+
+            @Override
+            public void errorMessage(String message) {
+                Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void getUsers(ArrayList<User> usersList, String message) {
+
+            }
+        });
+    }
+
+    public void selectAccountAsDefault(String accountId){
+        String selectedAccountId = accountId;
+
+        //getting account from firebase
+        myFirebaseHelper.getAccountFromDb(selectedAccountId, new AccountRetriever() {
+            @Override
+            public void get(Account account, String accountId, String message) {
+                myApp.setCurrentAccount(account);
+                myApp.setCurrentAccountId(accountId);
+                //calling shared preferences to set account uid
+                SharedPreferences.Editor prefEditor = sharedPref.edit();
+                //setting set pref of account id and accountName
+                prefEditor.putString(getString(R.string.pref_account_id),accountId);
+                prefEditor.putString(getString(R.string.pref_accountName), account.getAccName());
+                prefEditor.commit();
+
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+                showProgress(true);
+            }
+
+            @Override
+            public void errorMessage(String message) {
+                Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
