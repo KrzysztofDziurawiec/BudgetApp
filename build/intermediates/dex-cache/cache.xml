@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="42aa53da17a597ec7ae06537e738326275c89ef1">
+        sha1="dc5d80133d49f938fc315fbd47f63deb661415ed">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b3101370c6e7218ed1288c5c4260cefb7c9dccf1\classes.dex" />
     </item>
     <item
@@ -61,7 +61,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="84d029a696329acd3a196beee909c3442e91a870">
+        sha1="d49e39f3bc0f47e80d57e6a6457a8e4c7b5ce05d">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_69cbf7ea9909bcdd35373f646e0eff61186bdca1\classes.dex" />
     </item>
     <item
@@ -90,6 +90,15 @@
         revision="25.0.2"
         sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
         <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-10.2.0_276a6af6c440f9fbe66a6b0359390d398ee5ef8b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Owner\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v3.0.1\369f9aa48a629b4e92557b37326f42dc3de796e4\MPAndroidChart-v3.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="369f9aa48a629b4e92557b37326f42dc3de796e4">
+        <dex dex="C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\MPAndroidChart-v3.0.1_4c47d49474ff2c27e3805883b49af23639d65aa3\classes.dex" />
     </item>
     <item
         is-multidex="true"

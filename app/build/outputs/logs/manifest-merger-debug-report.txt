@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:2:1-35:12
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:2:1-36:12
 	package
 		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:3:5-48
 		INJECTED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml
@@ -33,7 +33,7 @@ MERGED from [com.google.firebase:firebase-iid:10.2.0] C:\Users\Owner\Desktop\UNI
 	android:name
 		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:9:22-64
 application
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:11:5-33:19
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:11:5-34:19
 MERGED from [com.android.support:design:25.1.1] C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\design\25.1.1\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:appcompat-v7:25.1.1] C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.1\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:25.1.1] C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.1.1\AndroidManifest.xml:22:5-20
@@ -67,35 +67,37 @@ MERGED from [com.android.support:support-compat:25.1.1] C:\Users\Owner\Desktop\U
 	android:name
 		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:12:9-44
 activity#com.example.kdziurawiec.budgetapp.activity.MainActivity
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:18:9-26:20
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:18:9-27:20
 	android:label
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:20:13-45
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:21:13-45
+	android:configChanges
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:20:13-74
 	android:name
 		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:19:13-50
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:21:13-25:29
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:22:13-26:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:22:17-69
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:22:25-66
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:24:17-77
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:24:27-74
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:25:27-74
 activity#com.example.kdziurawiec.budgetapp.activity.CreateAccountActivity
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:27:9-68
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:28:9-68
 	android:name
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:27:19-65
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:28:19-65
 activity#com.example.kdziurawiec.budgetapp.activity.TransactionActivity
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:28:9-66
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:29:9-66
 	android:name
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:28:19-63
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:29:19-63
 activity#com.example.kdziurawiec.budgetapp.activity.LoginActivity
-ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:29:9-32:20
+ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:30:9-33:20
 	android:label
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:31:13-57
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:32:13-57
 	android:name
-		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:30:13-51
+		ADDED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml:31:13-51
 uses-sdk
 INJECTED from C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:design:25.1.1] C:\Users\Owner\Desktop\UNIyear3\FinalYearProject\BudgetApp\BudgetApp\app\build\intermediates\exploded-aar\com.android.support\design\25.1.1\AndroidManifest.xml:21:5-23:62

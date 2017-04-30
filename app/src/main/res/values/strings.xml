@@ -33,13 +33,18 @@
 
     <!--dialog add member-->
     <string name="dialog_add_member_title">Add member:</string>
-    <string name="dialog_add_member_email_hint">Add member:</string>
+    <string name="dialog_add_member_email_hint">Type username:</string>
+
+    <!--dialog add member list-->
+    <string name="dialog_add_member_list_title">Select member:</string>
 
     <!--TransactionActivity-->
     <string name="et_add_trans">New Transaction</string>
     <string name="et_category">Category</string>
     <string name="et_amount">Amount</string>
     <string name="btn_amount">Add Transaction</string>
+    <string name="btn_income">Income</string>
+    <string name="btn_expens">Expense</string>
 
     <!--CreateAccountActivity-->
     <string name="et_acc_create">Create new account</string>
@@ -82,5 +87,10 @@
 
     <!-- Strings related to create transaction -->
     <string name="error_field_required_transaction">Enter amount</string>
+    <string name="error_category_transaction">Select category</string>
+
+    <!-- Strings related to create account -->
+    <string name="error_field_required_acc_name">Enter account name</string>
+    <string name="error_field_required_start_balance">Enter starting balance</string>
 
 </resources>

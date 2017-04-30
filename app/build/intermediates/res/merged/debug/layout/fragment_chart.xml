@@ -10,7 +10,7 @@
     tools:context="com.example.kdziurawiec.budgetapp.fragment.ChartFragment">
 
 
-    <TextView
+<!--    <TextView
         android:id="@+id/label"
         android:layout_alignParentTop="true"
         android:layout_marginTop="100dp"
@@ -29,6 +29,12 @@
         android:textSize="12dp"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:text="Edit fragment_chart.xml to change the appearance" />
+        android:text="Edit fragment_chart.xml to change the appearance" />-->
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.github.mikephil.charting.charts.PieChart>
 
 </RelativeLayout>

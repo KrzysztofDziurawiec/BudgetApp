@@ -33,6 +33,7 @@
         android:theme="@style/MyMaterialTheme" >
         <activity
             android:name="com.example.kdziurawiec.budgetapp.activity.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,9 +107,9 @@ public class MembersFragment extends Fragment {
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
                 String  email = input.getText().toString();
                 addUserToAccount(email);
+                //dialog.dismiss();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -144,16 +145,53 @@ public class MembersFragment extends Fragment {
 
     public void addUserToAccount(String email){
         //searching for user
-        myFirebaseHelper.getUserFromDbByEmail(email, new UserRetriever() {
+        myFirebaseHelper.getUsersListFromDbByUsername(email, new UserRetriever() {
             @Override
             public void get(User user) {
+
+            }
+
+            @Override
+            public void errorMessage(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void getUsers(final ArrayList<User> usersList, String message) {
+                ShowAlertDialogWithListview(usersList);
+            }
+        });
+    }
+
+    public void ShowAlertDialogWithListview(final ArrayList<User> usersList)
+    {
+        List<String> mUsers = new ArrayList<String>();
+        //looping through hashMap of accounts of current user and adding account Name to List
+        for(User u : usersList){
+            mUsers.add(u.getUsername());
+        }
+
+        //Create sequence of items
+        final CharSequence[] Users = mUsers.toArray(new String[mUsers.size()]);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getString(R.string.dialog_add_member_list_title));
+        dialogBuilder.setItems(Users, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                String selectedText = Users[item].toString();  //Selected item in listview
+                User selectedUser = new User();
+                //looping through hashMap of accounts of current user and checking for account id when account name selected
+                for(User u : usersList){
+                    if(u.getUsername().equals(selectedText)){
+                        selectedUser = u;
+                    }
+                }
 
                 //getting shared pref for acount id
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("BudgetAppSettings", Context.MODE_PRIVATE);
                 String accountID = sharedPref.getString(getString(R.string.pref_account_id),null);
                 String accountName = sharedPref.getString(getString(R.string.pref_accountName),null);
                 //adding user to account and account to user
-                myFirebaseHelper.addUserToAccountInDb(user, accountID, accountName);
+                myFirebaseHelper.addUserToAccountInDb(selectedUser, accountID, accountName);
 
                 //refresh fragments for members
                 List<Fragment> fragmentsList = getFragmentManager().getFragments();
@@ -163,12 +201,11 @@ public class MembersFragment extends Fragment {
                 fragTransaction.attach(currentFragment);
                 fragTransaction.commit();
             }
-
-            @Override
-            public void errorMessage(String message) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            }
         });
+        //Create alert dialog object via builder
+        AlertDialog alertDialogObject = dialogBuilder.create();
+        //Show the dialog
+        alertDialogObject.show();
     }
 
 

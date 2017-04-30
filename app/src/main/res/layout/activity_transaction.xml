@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/et_add_trans"
                 android:textStyle="bold"
-                android:textSize="20dp" />
+                android:textSize="@dimen/font_header_1" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -123,11 +123,31 @@
 
             <TextView
                 android:id="@+id/selectCategoryTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/et_category"
                 android:textStyle="bold"
-                android:textSize="20dp" />
+                android:textSize="@dimen/font_header_3" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:text="@string/btn_expens"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_tran_expense"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:text="@string/btn_income"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_tran_income"
+                    android:layout_weight="1" />
+            </RadioGroup>
 
             <ListView
                 android:id="@+id/categoryList"
@@ -146,6 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/icon_margin"
+                android:layout_marginBottom="@dimen/icon_margin"
                 android:text="@string/btn_amount"
                 android:textStyle="bold" />
 

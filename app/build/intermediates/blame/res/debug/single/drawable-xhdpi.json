@@ -1,11 +1,7 @@
 [
     {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_settings_white.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_settings_white.png"
-    },
-    {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_card.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_card.png"
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_other_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_other_white.png"
     },
     {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_category_3.png",
@@ -16,40 +12,28 @@
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_add_circle_outline.png"
     },
     {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_settings.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_settings.png"
-    },
-    {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_add.png",
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_add.png"
-    },
-    {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_acccount_balance_white.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_acccount_balance_white.png"
     },
     {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_wallet.png",
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_wallet.png"
     },
     {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_delete_forever_black.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_delete_forever_black.png"
-    },
-    {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_category_4.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_category_4.png"
-    },
-    {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_category_1.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_category_1.png"
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_rent_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_rent_white.png"
     },
     {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_member_face.png",
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_member_face.png"
     },
     {
-        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_add_group.png",
-        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_add_group.png"
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_child_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_child_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_car_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_car_white.png"
     },
     {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_chart.png",
@@ -66,6 +50,74 @@
     {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_category_2.png",
         "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_category_2.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_settings_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_settings_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_card.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_card.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_settings.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_settings.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_acccount_balance_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_acccount_balance_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_health_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_health_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_insurance_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_insurance_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_delete_forever_black.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_delete_forever_black.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_category_4.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_category_4.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_category_1.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_category_1.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_cake_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_cake_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_gambling_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_gambling_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_commuting_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_commuting_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_pets_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_pets_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_restaurant_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_restaurant_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_half_star_light.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_half_star_light.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_add_group.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_add_group.png"
+    },
+    {
+        "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_gift_white.png",
+        "source": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_gift_white.png"
     },
     {
         "merged": "C:\\Users\\Owner\\Desktop\\UNIyear3\\FinalYearProject\\BudgetApp\\BudgetApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_member_person.png",

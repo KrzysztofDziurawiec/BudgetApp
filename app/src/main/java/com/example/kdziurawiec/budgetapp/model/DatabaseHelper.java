@@ -82,6 +82,40 @@ public class DatabaseHelper {
         });
     }
 
+    public void getUsersListFromDbByUsername(final String username, @NonNull final UserRetriever userRetriever){
+        dbRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            //firebase event listener
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<User> usersList = new ArrayList<User>();
+                String message;
+                Boolean foundUser = false;
+                //looping through results, creating transaction objects and adding them to the transactionList
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    User user = ds.getValue(User.class);
+                    String compare = user.getUsername().trim();
+                    if(username.toUpperCase().trim().equals(compare.toUpperCase())){
+                        usersList.add(user);
+                        foundUser = true;
+                    }
+                }
+                if(!foundUser){
+                    message = "Can't find user: "+username;
+                    userRetriever.errorMessage(message);
+                }else{
+                    message ="Users list retrieved";
+                    userRetriever.getUsers(usersList, message);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                String message = "error in get user:" + databaseError.toString();
+                userRetriever.errorMessage(message);
+            }
+        });
+    }
+
     public void getAccountFromDb(String accountID, @NonNull final AccountRetriever accountRetriever){
         dbRef.child("accounts").child(accountID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -134,10 +168,10 @@ public class DatabaseHelper {
         CharSequence stringDate = DateFormat.format("dd-MM-yy hh:mm", date.getTime());
         Map<String, String> accounts = new HashMap<>();
 
-        User newUser = new User(userID, username, email, stringDate.toString(),accounts); //reading in and creating transaction object
+        User newUser = new User(userID, username, email, stringDate.toString(),accounts); //reading in and creating user object
 
-        DatabaseReference usersRef = dbRef.child("users").child(userID); //drilling down to transaction and setting it to tranRef
-        usersRef.setValue(newUser); //adding transaction object to transaction in firebase
+        DatabaseReference usersRef = dbRef.child("users").child(userID); //drilling down to user and setting it to userRef
+        usersRef.setValue(newUser); //adding user object to users in firebase
     }
 
     public void createTransactionInDb(Transaction transaction, final String accountID, final TransactionRetriever transactionRetriever){
@@ -204,6 +238,7 @@ public class DatabaseHelper {
         DatabaseReference accountRef = dbRef.child("accounts").child(accountID).child("users").child(user.getUserID()); //drilling down to user and setting it to current userRef
         accountRef.setValue(user.getUsername()); //adding account key to current user for double entry in firebase
     }
+
 }
 
 

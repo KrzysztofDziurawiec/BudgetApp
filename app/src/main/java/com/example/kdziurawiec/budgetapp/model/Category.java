@@ -9,11 +9,13 @@ public class Category {
     String name;
     String imageResource;
     String backgroundColor;
+    Boolean isExpense;
 
-    public Category(String nameIn, String imageResourceIn, String backgroundColorIn){
+    public Category(String nameIn, String imageResourceIn, String backgroundColorIn, Boolean isExpenseIn){
         this.name = nameIn;
         this.imageResource = imageResourceIn;
         this.backgroundColor = backgroundColorIn;
+        this.isExpense = isExpenseIn;
     }
 
     public String getName() {return name;}
@@ -21,4 +23,6 @@ public class Category {
     public String getImageResource() {return imageResource;}
 
     public String getBackgroundColor() {return backgroundColor;}
+
+    public Boolean getIsExpense() {return isExpense;}
 }
